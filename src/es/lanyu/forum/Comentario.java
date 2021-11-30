@@ -2,7 +2,7 @@ package es.lanyu.forum;
 
 import java.time.Instant;
 
-public class Comentario {
+public class Comentario implements Comparable<Comentario> {
 
 	private Usuario usuario;
 	private String comentario;
@@ -40,7 +40,7 @@ public class Comentario {
 		this.tiempo = tiempo;
 	}
 	
-	public static String textoRecortado(String texto, int longitudMaxima) {
+	public String textoRecortado(String texto, int longitudMaxima) {
 		String textoRecortado = texto;
 		if (texto.length() > longitudMaxima) {
 			textoRecortado = texto.substring(0, longitudMaxima) + "...";
@@ -49,8 +49,13 @@ public class Comentario {
 	}
 
 	@Override
-	public String toString() {
-		return getUsuario() + ": "  + textoRecortado(getComentario(), 20) + " en " + getTema() + " a las " + getTiempo();
+	public int compareTo(Comentario comentario) {
+		return comentario.getTiempo().compareTo(getTiempo());
 	}
-
+	
+	@Override
+	public String toString() {
+		return getUsuario().getToString() + ": " + textoRecortado(getComentario(), 20) + " en " + getTema() + " a las " + getTiempo();
+	}
+	
 }

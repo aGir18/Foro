@@ -11,13 +11,6 @@ public class UsuarioImpl implements Usuario {
 
 	public UsuarioImpl(String nombre) {
 		this.nombre = nombre;
-	}
-
-	@Override
-	public String toString() {
-		String mayusculas = getNombre();
-
-		return mayusculas.toUpperCase();
-	}
+	}	
 
 }
