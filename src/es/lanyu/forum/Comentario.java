@@ -2,60 +2,59 @@ package es.lanyu.forum;
 
 import java.time.Instant;
 
-public class Comentario implements Comparable<Comentario> {
-
+public class Comentario implements Comparable<Comentario>, DeUsuario, Datable {
+	
 	private Usuario usuario;
-	private String comentario;
+	private String texto;
 	private Tema tema;
-	private Instant tiempo;
-
+	private Instant instant;
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}
-
-	public String getComentario() {
-		return comentario;
+	
+	public String getTexto() {
+		return texto;
 	}
-
+	
 	public Tema getTema() {
 		return tema;
 	}
-
-	public Instant getTiempo() {
-		return tiempo;
+	
+	public Instant getInstant() {
+		return instant;
 	}
-
+	
 	public Comentario() {
-		this(null, "Sin comentario", null, null);
+		this(null, "Sin comentarios", null);
 	}
 	
-	public Comentario(Usuario usuario, String comentario, Tema tema) {
-		this(usuario, comentario, tema, Instant.now());
-	}
-
-	public Comentario(Usuario usuario, String comentario, Tema tema, Instant tiempo) {
+	public Comentario(Usuario usuario, String texto, Tema tema, Instant instant) {
 		this.usuario = usuario;
-		this.comentario = comentario;
+		this.texto = texto;
 		this.tema = tema;
-		this.tiempo = tiempo;
+		this.instant = instant;
 	}
 	
-	public String textoRecortado(String texto, int longitudMaxima) {
-		String textoRecortado = texto;
-		if (texto.length() > longitudMaxima) {
-			textoRecortado = texto.substring(0, longitudMaxima) + "...";
+	public Comentario(Usuario usuario, String texto, Tema tema) {
+		this(usuario, texto, tema, Instant.now());
+	}
+	
+	public String recortarTexto(String texto, int longitudTexto) {
+		if (texto.length() > longitudTexto) {
+			texto = texto.substring(0, longitudTexto) + "... ";
 		}
-		return textoRecortado;
+		return texto;
 	}
 
 	@Override
 	public int compareTo(Comentario comentario) {
-		return comentario.getTiempo().compareTo(getTiempo());
+		return comentario.getInstant().compareTo(getInstant());
 	}
 	
 	@Override
 	public String toString() {
-		return getUsuario().getToString() + ": " + textoRecortado(getComentario(), 20) + " en " + getTema() + " a las " + getTiempo();
+		return getUsuario().toString() + ": " + recortarTexto(getTexto(), 20)  +" en " + getTema() + " a las " + getInstant();
 	}
 	
 }

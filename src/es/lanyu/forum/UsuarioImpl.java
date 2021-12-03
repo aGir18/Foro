@@ -8,9 +8,14 @@ public class UsuarioImpl implements Usuario {
 	public String getNombre() {
 		return nombre;
 	}
-
+	
 	public UsuarioImpl(String nombre) {
 		this.nombre = nombre;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return getToString();
+	}
 
 }

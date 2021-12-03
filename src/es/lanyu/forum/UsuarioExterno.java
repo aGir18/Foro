@@ -12,5 +12,10 @@ public class UsuarioExterno extends User implements Usuario {
 	public String getNombre() {
 		return getUserName();
 	}
-
+	
+	@Override
+	public String toString() {
+		return getToString();
+	}
+	
 }
